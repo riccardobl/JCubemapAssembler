@@ -67,7 +67,7 @@ public class DDSExporter extends  ArrayList<BufferedImage>{
 		DWORD((CUBE_DIMENSION*24+7)/8); // dwPitchOrLinearSize 
 		DWORD(0); // dwDepth
 		DWORD(0); // dwMipMapCount
-		for(int t=0;t<11;t++)DWORD(0); // dwReserved1[11]
+		for(byte t=0;t<11;t++)DWORD(0); // dwReserved1[11]
 			// DDS_PIXELFORMAT
 			DWORD(32); // dwSize
 			DWORD(0x40); // dwFlags

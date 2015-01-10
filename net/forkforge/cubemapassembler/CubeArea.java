@@ -62,7 +62,7 @@ public class CubeArea extends JPanel{
 	public CubeArea(int id,Point position){
 		super();
 		POSITION=position;
-		new FileDrop(System.out,this,new FileDrop.Listener(){
+		new FileDrop(null,this,new FileDrop.Listener(){
 			public void filesDropped(File[] files) {
 				try{
 					setImage(files[0]);
