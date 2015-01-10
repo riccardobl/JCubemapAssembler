@@ -59,18 +59,18 @@ public abstract class ExportDialog extends JDialog{
 		setTitle("Export Image");
 		setLayout(new BorderLayout());
 		
-		JTextArea width=new JTextArea("1024");
-		JTextArea height=new JTextArea("768");
+		final JTextArea width=new JTextArea("1024");
+		final JTextArea height=new JTextArea("768");
 
 		JPanel out_file=new JPanel();
 		out_file.setLayout(new BorderLayout());
-		JTextArea file_path=new JTextArea();
+		final JTextArea file_path=new JTextArea();
 
 		out_file.add(BorderLayout.CENTER,file_path);
 		JButton file_selection=new JButton("...");
 		file_selection.setPreferredSize(new Dimension(20,20));
 		out_file.add(BorderLayout.EAST,file_selection);
-		ExportDialog sd=this;
+		final ExportDialog sd=this;
 		file_selection.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
