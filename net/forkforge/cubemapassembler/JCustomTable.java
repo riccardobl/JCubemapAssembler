@@ -14,7 +14,7 @@ import javax.swing.table.TableCellRenderer;
 
 /**
  *  *******************
- *   Cubemap Assembler
+ *   jCubemapAssembler
  *  *******************
  *  
  * This is free and unencumbered software released into the public domain.
@@ -42,10 +42,11 @@ import javax.swing.table.TableCellRenderer;
  *
  * For more information, please refer to <http://unlicense.org/>
  * 
- * @author  Riccardo B.
+ * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.0
+ * @version 1.1
  */
+
 
 public class JCustomTable extends JTable implements ListSelectionListener{
 	private static final long serialVersionUID=1L;

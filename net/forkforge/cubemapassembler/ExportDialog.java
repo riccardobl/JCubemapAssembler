@@ -18,7 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *  *******************
- *   Cubemap Assembler
+ *   jCubemapAssembler
  *  *******************
  *  
  * This is free and unencumbered software released into the public domain.
@@ -46,10 +46,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  *
  * For more information, please refer to <http://unlicense.org/>
  * 
- * @author  Riccardo B.
+ * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.0
+ * @version 1.1
  */
+
 
 public abstract class ExportDialog extends JDialog{
 
@@ -77,12 +78,12 @@ public abstract class ExportDialog extends JDialog{
 				JFileChooser fc=new JFileChooser();
 				FileFilter default_filter=null;
 				
-				String exts[]=new String[]{"jpg","png"};
+				String exts[]=new String[]{"jpg","png","dds"};
 				for(String x:exts){
 					String name="Image ."+x;
 					FileFilter filter=new FileNameExtensionFilter(name,x);
 					fc.addChoosableFileFilter(filter);
-					if(default_filter==null&&x.equals("jpg"))default_filter=filter;
+					if(default_filter==null&&x.equals("dds"))default_filter=filter;
 				}
 				if(default_filter!=null)fc.setFileFilter(default_filter);
 				

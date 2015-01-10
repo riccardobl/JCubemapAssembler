@@ -20,7 +20,7 @@ import org.imgscalr.Scalr;
 
 /**
  *  *******************
- *   Cubemap Assembler
+ *   jCubemapAssembler
  *  *******************
  *  
  * This is free and unencumbered software released into the public domain.
@@ -48,10 +48,11 @@ import org.imgscalr.Scalr;
  *
  * For more information, please refer to <http://unlicense.org/>
  * 
- * @author  Riccardo B.
+ * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.0
+ * @version 1.1
  */
+
 
 public class CubeArea extends JPanel{
 	private static final long serialVersionUID=1L;

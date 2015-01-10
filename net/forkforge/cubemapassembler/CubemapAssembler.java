@@ -20,7 +20,7 @@ import org.imgscalr.Scalr;
 
 /**
  *  *******************
- *   Cubemap Assembler
+ *   jCubemapAssembler
  *  *******************
  *  
  * This is free and unencumbered software released into the public domain.
@@ -48,17 +48,19 @@ import org.imgscalr.Scalr;
  *
  * For more information, please refer to <http://unlicense.org/>
  * 
- * @author  Riccardo B.
+ * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.0
+ * @version 1.1
  */
 
 public class CubemapAssembler extends JFrame{
 	private static final long serialVersionUID=1L;
+	private static final String _VERSION="v1.1";
+
 	private CubeArea CUBES[]=new CubeArea[6];
 	
 	public CubemapAssembler(){
-		super("Cubemap Assembler");
+		super("Cubemap Assembler "+_VERSION);
 		setLayout(new BorderLayout());
 
 		JPanel img_container=new JPanel();
@@ -77,9 +79,7 @@ public class CubemapAssembler extends JFrame{
 			}
 		});
 		add(BorderLayout.SOUTH,export_button);
-				
-		
-		
+
 		CUBES[0]=new CubeArea(0,new Point(1,0));
 		CUBES[1]=new CubeArea(1,new Point(0,1));
 		CUBES[2]=new CubeArea(2,new Point(1,1));
@@ -104,22 +104,18 @@ public class CubemapAssembler extends JFrame{
 				}
 			}
 		}
-		
 
-		
-		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-		
-	
+
 	}
-	
-	private void export(){
+
+	private void export() {
 		new ExportDialog(this){
 			private static final long serialVersionUID=1L;
+
 			@Override
 			public void onExport(int width, int height, File f) {
 				try{
@@ -131,32 +127,47 @@ public class CubemapAssembler extends JFrame{
 			}
 		};
 	}
-	
-	private void export(File out_img,Dimension dimension) throws Exception{
+
+	private void export(File out_img, Dimension dimension) throws Exception {
 		int cube_dimension=dimension.width/4;
 		if(dimension.height/3!=cube_dimension) new Exception("Error: Dimension not valid.");
-		
+
 		String path_p[]=out_img.getAbsolutePath().split("\\.");
 		String ext=path_p[path_p.length-1];
-		
-		BufferedImage result = new BufferedImage(dimension.width,dimension.height, ext.equals("jpg")?BufferedImage.TYPE_3BYTE_BGR:BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics g =  result.getGraphics();
-		
-		for(CubeArea c:CUBES){
-			if(c.getImage()==null)continue;
-			Point cube_position=c.getCubePosition();
-			int x=cube_position.x*cube_dimension;
-			int y=cube_position.y*cube_dimension;
-			BufferedImage cube_img=Scalr.resize(c.getImage(),Scalr.Method.ULTRA_QUALITY,Scalr.Mode.AUTOMATIC,cube_dimension,cube_dimension,Scalr.OP_ANTIALIAS);
-			g.drawImage(cube_img,x,y,null);
+
+		if(ext.equals("dds")){
+			BufferedImage top=CUBES[0].getImage();
+			BufferedImage bottom=CUBES[5].getImage();
+			
+			BufferedImage left=CUBES[1].getImage();
+			BufferedImage right=CUBES[3].getImage();
+			
+			BufferedImage front=CUBES[2].getImage();
+			BufferedImage back=CUBES[4].getImage();
+			
+			DDSExporter exporter=new DDSExporter(cube_dimension);
+			exporter.addImages(right,left,top,bottom,front,back);
+			exporter.write(out_img);
+			
+		}else{
+			BufferedImage result=new BufferedImage(dimension.width,dimension.height,ext.equals("jpg")?BufferedImage.TYPE_3BYTE_BGR:BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics g=result.getGraphics();
+
+			for(CubeArea c:CUBES){
+				if(c.getImage()==null) continue;
+				Point cube_position=c.getCubePosition();
+				int x=cube_position.x*cube_dimension;
+				int y=cube_position.y*cube_dimension;
+				BufferedImage cube_img=Scalr.resize(c.getImage(),Scalr.Method.ULTRA_QUALITY,Scalr.Mode.FIT_EXACT,cube_dimension,cube_dimension,Scalr.OP_ANTIALIAS);
+				g.drawImage(cube_img,x,y,null);
+			}
+			g.dispose();
+
+			ImageIO.write(result,ext,out_img);
 		}
-		g.dispose();
-		
-		ImageIO.write(result,ext,out_img);
 	}
-	
-	
-	public static void main(String _a[]){
+
+	public static void main(String _a[]) {
 		new CubemapAssembler();
 	}
 
