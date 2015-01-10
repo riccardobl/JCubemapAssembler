@@ -3,7 +3,7 @@ JCubemapAssembler is a java application that can be used to assemble six separat
 
 <a target="_blank" href="https://www.youtube.com/watch?v=Y6Gh5d0oAEY"><img src="http://img.youtube.com/vi/Y6Gh5d0oAEY/0.jpg" /></a>
 
-##Usage
+###Usage
   1. Compile the source code or download the latest executable from <a href="https://googledrive.com/host/0BwOEIhbHMKaFZFlNWW1hQVFrN1E" target="_blank">here</a>.
   2. Run it with java>=7 
   3. Drag every image inside the correct box or double click the box and select an image
@@ -14,9 +14,9 @@ JCubemapAssembler is a java application that can be used to assemble six separat
   8. Profit!!1
 
   
-##License:
+###License
  Source and executable are released into public domain. Use them without any restriction.
   
   
-##DDS Exporter:
+###DDS Exporter
  From version 1.1 it's possible to export the cubemap as DirectDraw Surface (.dds) file.
