@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -78,7 +77,7 @@ public abstract class ExportDialog extends JDialog{
 				JFileChooser fc=new JFileChooser();
 				FileFilter default_filter=null;
 				
-				String exts[]=ImageIO.getReaderFileSuffixes();
+				String exts[]=new String[]{"jpg","png"};
 				for(String x:exts){
 					String name="Image ."+x;
 					FileFilter filter=new FileNameExtensionFilter(name,x);
@@ -98,7 +97,6 @@ public abstract class ExportDialog extends JDialog{
 
 					if(fps.length>0){
 						String x="."+fps[1];
-						System.out.println(x);
 						if(!path.endsWith(x)){
 							path+=x;
 						}

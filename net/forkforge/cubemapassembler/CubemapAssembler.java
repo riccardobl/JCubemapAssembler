@@ -2,7 +2,7 @@ package net.forkforge.cubemapassembler;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -136,8 +136,11 @@ public class CubemapAssembler extends JFrame{
 		int cube_dimension=dimension.width/4;
 		if(dimension.height/3!=cube_dimension) new Exception("Error: Dimension not valid.");
 		
-		BufferedImage result = new BufferedImage(dimension.width,dimension.height, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D g = (Graphics2D) result.getGraphics();
+		String path_p[]=out_img.getAbsolutePath().split("\\.");
+		String ext=path_p[path_p.length-1];
+		
+		BufferedImage result = new BufferedImage(dimension.width,dimension.height, ext.equals("jpg")?BufferedImage.TYPE_3BYTE_BGR:BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics g =  result.getGraphics();
 		
 		for(CubeArea c:CUBES){
 			if(c.getImage()==null)continue;
@@ -148,8 +151,7 @@ public class CubemapAssembler extends JFrame{
 			g.drawImage(cube_img,x,y,null);
 		}
 		g.dispose();
-		String path_p[]=out_img.getAbsolutePath().split("\\.");
-		String ext=path_p[path_p.length-1];
+		
 		ImageIO.write(result,ext,out_img);
 	}
 	

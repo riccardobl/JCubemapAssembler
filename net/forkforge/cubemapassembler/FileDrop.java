@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Reader;
 
+import net.forkforge.cubemapassembler.FileDrop.TransferableObject;
+
 /**
  * This class makes it easy to drag and drop files from the operating
  * system to a Java program. Any <tt>java.awt.Component</tt> can be
