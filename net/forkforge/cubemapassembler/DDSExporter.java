@@ -1,5 +1,7 @@
 package net.forkforge.cubemapassembler;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.BufferedOutputStream;
@@ -43,7 +45,7 @@ import org.imgscalr.Scalr;
  * 
  * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.1
+ * @version 1.1.1
  */
 
 
@@ -85,11 +87,20 @@ public class DDSExporter extends  ArrayList<BufferedImage>{
 		// ---
 		
 		for(BufferedImage xi:this){
-			BufferedImage i=Scalr.resize(xi,Scalr.Method.ULTRA_QUALITY,Scalr.Mode.FIT_EXACT,CUBE_DIMENSION,CUBE_DIMENSION,Scalr.OP_ANTIALIAS);
-		
-			BufferedImage rgb_image=new BufferedImage(i.getWidth(),i.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
-			rgb_image.getGraphics().drawImage(i,0,0,null);
-		
+			BufferedImage rgb_image;
+			if(xi==null){
+				rgb_image=new BufferedImage(CUBE_DIMENSION,CUBE_DIMENSION, BufferedImage.TYPE_3BYTE_BGR);
+				Graphics g=rgb_image.getGraphics();
+				g.setColor(Color.BLACK);
+				g.fillRect(0,0,CUBE_DIMENSION,CUBE_DIMENSION);
+				g.dispose();
+			}else{
+				BufferedImage i=Scalr.resize(xi,Scalr.Method.ULTRA_QUALITY,Scalr.Mode.FIT_EXACT,CUBE_DIMENSION,CUBE_DIMENSION,Scalr.OP_ANTIALIAS);
+				rgb_image=new BufferedImage(i.getWidth(),i.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+				Graphics g=rgb_image.getGraphics();
+				g.drawImage(i,0,0,null);
+				g.dispose();
+			}
 			IMAGE(rgb_image);		
 		}
 		OSTREAM.close();
@@ -101,17 +112,16 @@ public class DDSExporter extends  ArrayList<BufferedImage>{
 		OSTREAM.write(pixels);
 	}
 	
+	protected void DWORD(int i) throws IOException{
+		byte[] dword = new byte[4];
+		dword[0] = (byte) (i & 0x00FF);
+		dword[1] = (byte) ((i >> 8) & 0x000000FF);
+		dword[2] = (byte) ((i >> 16) & 0x000000FF);
+		dword[3] = (byte) ((i >> 24) & 0x000000FF);
+		OSTREAM.write(dword);
+	}
+
 	public void addImages(BufferedImage ...images){
 		for(BufferedImage i:images)add(i);
 	}
-
-	protected void DWORD(int i) throws IOException{
-		byte[] dword = new byte[4];
-        dword[0] = (byte) (i & 0x00FF);
-        dword[1] = (byte) ((i >> 8) & 0x000000FF);
-        dword[2] = (byte) ((i >> 16) & 0x000000FF);
-        dword[3] = (byte) ((i >> 24) & 0x000000FF);
-        OSTREAM.write(dword);
-	}
-
 }

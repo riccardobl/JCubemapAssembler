@@ -1,7 +1,10 @@
 package net.forkforge.cubemapassembler;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -50,7 +53,7 @@ import org.imgscalr.Scalr;
  * 
  * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.1
+ * @version 1.1.1
  */
 
 
@@ -109,15 +112,21 @@ public class CubeArea extends JPanel{
 	
 	
 	@Override
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
+	public void paintComponent(Graphics gr){
+		super.paintComponent(gr);
 		Dimension size=getSize();
-
+		Graphics2D g=(Graphics2D)gr;
 		if(IMAGE!=null){
 			Image img=resize(IMAGE,size.width,size.height);
 			g.drawImage(img,0,0,null);
 		}else{
+			g.setColor(new Color(30,30,30));
 			g.fillRect(0,0,size.width,size.height);
+			g.setStroke(new BasicStroke(1));
+			g.setColor(Color.BLACK);
+			g.drawLine(0,0,size.width,size.height);
+			g.drawLine(0,size.height,size.width,0);
+			g.drawRect(0,0,size.width,size.height);
 		}
 	}
 	

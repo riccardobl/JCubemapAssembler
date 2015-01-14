@@ -1,6 +1,7 @@
 package net.forkforge.cubemapassembler;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -15,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.plaf.metal.DefaultMetalTheme;
+import javax.swing.plaf.metal.MetalLookAndFeel;
 
 import org.imgscalr.Scalr;
 
@@ -50,26 +53,26 @@ import org.imgscalr.Scalr;
  * 
  * @author  Riccardo Balbo
  * @email  riccardo@forkforge.net
- * @version 1.1
+ * @version 1.1.1
  */
 
 public class CubemapAssembler extends JFrame{
 	private static final long serialVersionUID=1L;
-	private static final String _VERSION="v1.1";
+	private static final String _VERSION="v1.1.1";
 
 	private CubeArea CUBES[]=new CubeArea[6];
 	
 	public CubemapAssembler(){
 		super("Cubemap Assembler "+_VERSION);
-		setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
 
 		JPanel img_container=new JPanel();
 		img_container.setLayout(new GridLayout(3,4));
 		Dimension size=new Dimension(1024,768);
 		img_container.setSize(size);
 		img_container.setPreferredSize(size);
-
-		add(BorderLayout.CENTER,img_container);
+		img_container.setOpaque(false);
+		getContentPane().add(BorderLayout.CENTER,img_container);
 
 		JButton export_button=new JButton("Export");
 		export_button.addActionListener(new ActionListener(){
@@ -78,7 +81,7 @@ public class CubemapAssembler extends JFrame{
 				export();
 			}
 		});
-		add(BorderLayout.SOUTH,export_button);
+		getContentPane().add(BorderLayout.SOUTH,export_button);
 
 		CUBES[0]=new CubeArea(0,new Point(1,0));
 		CUBES[1]=new CubeArea(1,new Point(0,1));
@@ -91,25 +94,27 @@ public class CubemapAssembler extends JFrame{
 			for(int x=0;x<4;x++){
 				Point grid_point=new Point(x,y);
 				boolean fnd=false;
-				for(CubeArea c:CUBES){
-					Point cube_point=c.getCubePosition();
+				for(CubeArea cube_area:CUBES){
+					Point cube_point=cube_area.getCubePosition();
 					if(grid_point.equals(cube_point)){
-						img_container.add(c);
+						img_container.add(cube_area);
 						fnd=true;
 						break;
 					}
 				}
 				if(!fnd){
-					img_container.add(new JPanel());
+					JPanel j=new JPanel();
+					j.setOpaque(false);
+					img_container.add(j);
 				}
 			}
 		}
-
+		
+		getContentPane().setBackground(Color.GRAY);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
 		setVisible(true);
-
 	}
 
 	private void export() {
@@ -168,6 +173,11 @@ public class CubemapAssembler extends JFrame{
 	}
 
 	public static void main(String _a[]) {
+		try{
+			MetalLookAndFeel.setCurrentTheme(new DefaultMetalTheme());
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		new CubemapAssembler();
 	}
 
