@@ -2,7 +2,7 @@
 JCubemapAssembler is a java application that can be used to assemble six separate face images into a single cubemap.
 
 <p align="center">
-<a href="https://googledrive.com/host/0BwOEIhbHMKaFZFlNWW1hQVFrN1E" target="_blank">~~ DOWNLOAD jCubemapAssembler ~~</a>
+<a href="http://goo.gl/pTcqaN" target="_blank">~~ DOWNLOAD jCubemapAssembler ~~</a>
 
 <br />
 <br />
@@ -12,7 +12,7 @@ JCubemapAssembler is a java application that can be used to assemble six separat
 </p>
 
 ###Usage
-  1. Compile the source code or download the latest executable from <a href="https://googledrive.com/host/0BwOEIhbHMKaFZFlNWW1hQVFrN1E" target="_blank">here</a>.
+  1. Compile the source code or download the latest executable from <a href="http://goo.gl/pTcqaN" target="_blank">here</a>.
   2. Run it with java>=7 
   3. Drag every image inside the correct box or double click the box and select an image
   4. Click the big Export button
