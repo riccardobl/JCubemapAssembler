@@ -1,0 +1,87 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>net.forkforge</groupId>
+	<artifactId>jCubemapAssembler</artifactId>
+	<version>2.0</version>
+	<name>jCubemapAssembler</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jme.version>3.1.0-d88d4a1de1ef4b443f70db326450caceb846634b</jme.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<repositories>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>central</id>
+			<name>bintray</name>
+			<url>http://jcenter.bintray.com</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-riccardo-jmonkey3.1-unofficial</id>
+			<name>bintray-riccardo-jmonkey3.1-unofficial</name>
+			<url>http://dl.bintray.com/riccardo/jmonkey3.1-unofficial</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-riccardo-jme3-plugins</id>
+			<name>bintray-riccardo-jme3-plugins</name>
+			<url>http://dl.bintray.com/riccardo/jme3-plugins</url>
+		</repository>
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<id>bintray-riccardo-thirdparty</id>
+			<name>bintray</name>
+			<url>http://dl.bintray.com/riccardo/thirdparty</url>
+		</repository>
+	</repositories>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jme3</groupId>
+			<artifactId>jme3-core</artifactId>
+			<version>${jme.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.jme3</groupId>
+			<artifactId>jme3-desktop</artifactId>
+			<version>${jme.version}</version>
+		</dependency>
+
+
+
+
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+	</dependencies>
+</project>
