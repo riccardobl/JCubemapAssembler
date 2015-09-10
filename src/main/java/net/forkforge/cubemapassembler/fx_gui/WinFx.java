@@ -20,17 +20,14 @@ public class WinFx extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		ASSEMBLE_SCENE=new AssembleSceneFx(800,650);
-		ASSEMBLE_SCENE.setOnDragOver(new EventHandler<DragEvent>(){
-			@Override
-			public void handle(DragEvent event) {
-				Dragboard db=event.getDragboard();
-				if(db.hasFiles()){
-					event.acceptTransferModes(TransferMode.COPY);
-				}else{
-					event.consume();
-				}
-			}
-		});
+		ASSEMBLE_SCENE.setOnDragOver((DragEvent event) -> {
+                    Dragboard db=event.getDragboard();
+                    if(db.hasFiles()){
+                        event.acceptTransferModes(TransferMode.COPY);
+                    }else{
+                        event.consume();
+                    }
+                });
 
 		stage.setTitle("jCubemapAssembler "+jCubemapAssembler._VERSION);
 		STAGE=stage;
