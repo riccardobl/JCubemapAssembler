@@ -14,6 +14,10 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 
 import javax.imageio.ImageIO;
@@ -27,9 +31,11 @@ public class AreaFx extends Canvas implements Area{
 	private BufferedImage IMAGE;
 	private TxPositions POSITION;
 	private FileChooser FILE_CHOOSER = new FileChooser();
+        private String TEXT;
 
-	public AreaFx(){
+	public AreaFx(String text){
 		super();
+                TEXT=text;
 		setOnDragDropped(new EventHandler<DragEvent>(){
 			@Override
 			public void handle(DragEvent event) {
@@ -77,6 +83,10 @@ public class AreaFx extends Canvas implements Area{
 			}
 		});
 	}
+        
+        private int percentage(int i,int j) {
+            return (i/100)*j;
+        }
 
 	private void paintComponent(GraphicsContext g) {
 		int width=(int)getWidth();
@@ -91,7 +101,18 @@ public class AreaFx extends Canvas implements Area{
 			g.setStroke(Color.LIGHTSALMON);
 			g.strokeLine(0,0,width,height);
 			g.strokeLine(0,height,width,0);
+                        g.strokeLine(0,0,0,0);
+                        g.strokeLine(0,height/2,width,height/2);
 			g.strokeRect(0,0,width,height);
+                        //Text box
+                        g.fillRect(percentage(width,25),
+                                   percentage(height,35),
+                                   percentage(width,50),
+                                   percentage(height,30));
+                        //Text & Re-fill-coloring (??)
+                        g.setFill(Color.LIGHTGREEN);
+                        g.setFont(Font.font ("Tahoma", 20));
+                        g.fillText(TEXT, POSITION.getXY()[0]+percentage(width,50)-TEXT.length()*(g.getFont().getSize()/3.2f), POSITION.getXY()[0]+percentage(height,52));
 		}
 
 	}

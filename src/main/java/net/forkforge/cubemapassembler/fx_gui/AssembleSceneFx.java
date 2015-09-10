@@ -46,8 +46,9 @@ public class AssembleSceneFx extends Scene{
 		for(byte i=0;i<IMAGES.length;i++){
 			TxPositions position=TxPositions.values()[i];
 			int xy[]=position.getXY();
-
-			AreaFx img=IMAGES[i]=new AreaFx();						
+                        String text=position.getText();
+                        
+			AreaFx img=IMAGES[i]=new AreaFx(text);						
 			img.setPosition(position);			
 			cubemap.add(img,xy[0],xy[1]);
 
